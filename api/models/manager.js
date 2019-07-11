@@ -8,8 +8,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   );
-  Manager.associate = function(models) {
-    Users.hasOne(models.Managers);
-  };
+  Manager.associate = function(models) {};
   return Manager;
 };
