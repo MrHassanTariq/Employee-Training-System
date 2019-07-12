@@ -1,11 +1,14 @@
-'use strict';
+"use strict";
 module.exports = (sequelize, DataTypes) => {
-  const Trainee = sequelize.define('Trainee', {
-    userId: DataTypes.INTEGER,
-    courseId: DataTypes.INTEGER
-  }, {});
+  const Trainee = sequelize.define(
+    "Trainee",
+    {
+      createdAt: DataTypes.DATE
+    },
+    {}
+  );
   Trainee.associate = function(models) {
-    // associations can be defined here
+    Trainee.belongsToMany(models.document);
   };
   return Trainee;
 };

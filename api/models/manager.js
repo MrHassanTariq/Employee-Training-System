@@ -1,13 +1,14 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-  const Manager = sequelize.define(
-    "Manager",
+  const manager = sequelize.define(
+    "manager",
     {
-      userId: DataTypes.INTEGER,
-      courseId: DataTypes.INTEGER
+      createdAt: DataTypes.DATE
     },
     {}
   );
-  Manager.associate = function(models) {};
-  return Manager;
+  manager.associate = function(models) {
+    manager.hasMany(models.course);
+  };
+  return manager;
 };
