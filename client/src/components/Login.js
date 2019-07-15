@@ -1,13 +1,36 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class Login extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      roles: []
+      email: "",
+      password: ""
     };
   }
+
+  onChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+
+  onSubmit = e => {
+    e.preventDefault();
+    const user = {
+      email: this.state.email,
+      password: this.state.password
+    };
+
+    axios
+      .post("http://localhost:9000/users/login", {
+        email: user.email,
+        password: user.password
+      })
+      .then(res => console.log(res));
+  };
 
   render() {
     return (
