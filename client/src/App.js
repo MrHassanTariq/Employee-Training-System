@@ -4,11 +4,8 @@ import "./App.css";
 
 import AddUser from "./components/AddUser";
 import Login from "./components/Login";
-import NavBar from "./components/NavBar";
-// import CreateCourse from "./components/CreateCourse";
-// import AssignCourse from "./components/AssignCourse";
-// import AddDocument from "./components/AddDocument";
 import ManagerDashboard from "./components/ManagerDashboard";
+import TraineeDashboard from "./components/Trainee/traineeDashboard";
 
 function App() {
   return (
@@ -16,8 +13,8 @@ function App() {
       <Router>
         <Route exact path="/" component={Login} />
         <Route exact path="/addUser" component={AddUser} />
-        <Route exact path="/navbar" component={NavBar} />
         <Route exact path="/mangerDashboard" component={ManagerDashboard} />
+        <Route exact path="/traineeDashboard" component={TraineeDashboard} />
       </Router>
     </div>
   );

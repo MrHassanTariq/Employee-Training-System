@@ -20,7 +20,7 @@ class CreateCourse extends Component {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="startDate">Course Name</label>
+                <label htmlFor="startDate">Start Date</label>
                 <input
                   type="date"
                   className="form-control"
@@ -30,7 +30,7 @@ class CreateCourse extends Component {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="courseName">Course Name</label>
+                <label htmlFor="courseName">End date</label>
                 <input
                   type="date"
                   className="form-control"

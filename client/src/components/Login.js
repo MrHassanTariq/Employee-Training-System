@@ -3,26 +3,18 @@ import React, { Component } from "react";
 class Login extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      roles: []
+    };
   }
 
-  state = {
-    roles: []
-  };
-
-  componentDidMount() {
-    fetch("http://localhost:3/fetchUsers")
-      .then(res => res.json())
-      .then(data => {
-        this.setState({ contacts: data });
-      })
-      .catch(console.log);
-  }
   render() {
     return (
       <div className="container">
         <div className="row">
           <div className="col-md-6 mt-5 mx-auto">
-            <form Validate onSubmit={this.onSubmit}>
+            <form onSubmit={this.onSubmit}>
               <h1 className="h3 font-weight-normal">Login</h1>
               <div className="form-group">
                 <label htmlFor="email">Email</label>

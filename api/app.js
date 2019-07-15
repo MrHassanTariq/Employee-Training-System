@@ -8,6 +8,8 @@ var cors = require("cors");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var rolesRouter = require("./routes/roles");
+var courseRouter = require("./routes/Courses");
+var documentsRouter = require("./routes/Documents");
 
 var app = express();
 
@@ -25,6 +27,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/roles", rolesRouter);
+app.use("/assigned", courseRouter);
+app.use("/trainee", documentsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

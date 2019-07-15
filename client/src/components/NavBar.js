@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class NavBar extends Component {
   logOut(e) {
@@ -8,22 +8,22 @@ class NavBar extends Component {
     this.props.history.push(`/`);
   }
 
-  render() {
-    const loginRegLink = (
-      <ul className="navbar-nav">
-        <li className="nav-item">
-          <Link to="/login" className="nav-link">
-            Login
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link to="/register" className="nav-link">
-            Register
-          </Link>
-        </li>
-      </ul>
-    );
-  }
+  // render() {
+  //   const loginRegLink = (
+  //     <ul className="navbar-nav">
+  //       <li className="nav-item">
+  //         <Link to="/login" className="nav-link">
+  //           Login
+  //         </Link>
+  //       </li>
+  //       <li className="nav-item">
+  //         <Link to="/register" className="nav-link">
+  //           Register
+  //         </Link>
+  //       </li>
+  //     </ul>
+  //   );
+  // }
 
   state = {};
   render() {
@@ -64,6 +64,11 @@ class NavBar extends Component {
             <li className="nav-item">
               <Link to="/addDocument" className="nav-link">
                 Add Document
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/courseDetails" className="nav-link">
+                Course Deatils
               </Link>
             </li>
           </ul>

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { register } from "./userFunctions";
+// import { register } from "./userFunctions";
+import axios from "axios";
 
 class AddUser extends Component {
   constructor() {
@@ -11,9 +12,6 @@ class AddUser extends Component {
       password: "",
       accountType: ""
     };
-    this.onChange = this.onChange.bind(this);
-    //this.handleRoleType = this.handleRoleType.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
   //Call to get all Roles
@@ -21,7 +19,6 @@ class AddUser extends Component {
     fetch("http://localhost:9000/roles/getRoles")
       .then(res => res.json())
       .then(res => {
-        console.log(res);
         res.map(row => {
           this.setState({
             apiResponse: [
@@ -31,22 +28,15 @@ class AddUser extends Component {
           });
           return row;
         });
-        //this.setState({ apiResponse: res });
       })
       .catch(err => err);
   }
 
   handleRoleType = e => {
     const value = e.target.value;
-    // console.log(e.target.value); //2 trainee
-    // console.log(value);
-    // this.setState(prevState => ({
-    //   accountType: value
-    // }));
     this.setState({
       accountType: value
     });
-    console.log(this.state.accountType); //1 trainee
   };
 
   componentDidMount() {
@@ -55,24 +45,30 @@ class AddUser extends Component {
 
   getAccountType() {}
 
-  onChange(e) {
+  onChange = e => {
     e.preventDefault();
     this.setState({ [e.target.name]: e.target.value });
-  }
+  };
 
-  onSubmit(e) {
+  onSubmit = e => {
     e.preventDefault();
 
     const newUser = {
       email: this.state.email,
       name: this.state.name,
-      password: this.state.password
+      password: this.state.password,
+      roleId: this.state.accountType
     };
 
-    register(newUser).then(res => {
-      this.props.history.push(`/register`);
-    });
-  }
+    axios
+      .post("http://localhost:9000/users/register", {
+        email: newUser.email,
+        name: newUser.name,
+        password: newUser.password,
+        roleId: newUser.roleId
+      })
+      .then(res => this.props.history.push(`/`));
+  };
 
   // onSubmit() {}
 
@@ -81,18 +77,7 @@ class AddUser extends Component {
       <div className="container">
         <div className="row">
           <div className="col-md-6 mt-5 mx-auto">
-            <div className="container">
-              <div className="col-md-10" />
-              <div className="col-md-2">
-                <button
-                  type="submit"
-                  className="btn btn-sm btn-primary btn-block"
-                >
-                  Logout!
-                </button>
-              </div>
-            </div>
-            <form noValidate onSubmit={this.onSubmit}>
+            <form onSubmit={this.onSubmit}>
               <h1 className="h3 font-weight-normal">Add User</h1>
               <div className="form-group">
                 <label htmlFor="email">Email</label>
@@ -139,7 +124,11 @@ class AddUser extends Component {
                   onChange={this.handleRoleType}
                 >
                   {this.state.apiResponse.map((item, i) => {
-                    return <option value={item.id}>{item.name}</option>;
+                    return (
+                      <option key={i} value={item.id}>
+                        {item.name}
+                      </option>
+                    );
                   })}
                 </select>
               </div>
@@ -158,28 +147,3 @@ class AddUser extends Component {
 }
 
 export default AddUser;
-
-class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      value: 0,
-      message: "default click state"
-    };
-  }
-  onClick = () => {
-    this.setState({ value: this.state.value + 1 });
-    this.setState({ message: `click-state ${this.state.value}` });
-  };
-  render() {
-    return (
-      <div>
-        {" "}
-        <div>
-          render->state={this.state.value} - {this.state.message}{" "}
-        </div>{" "}
-        <button onClick={this.onClick}>Click-setState</button>{" "}
-      </div>
-    );
-  }
-}
