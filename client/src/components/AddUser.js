@@ -67,7 +67,10 @@ class AddUser extends Component {
         password: newUser.password,
         roleId: newUser.roleId
       })
-      .then(res => this.props.history.push(`/`));
+      .then(res => {
+        localStorage.setItem("userId", res.data.insertId);
+        // this.props.history.push(`/`);
+      });
   };
 
   // onSubmit() {}

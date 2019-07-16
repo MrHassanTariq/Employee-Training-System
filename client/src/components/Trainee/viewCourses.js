@@ -5,16 +5,24 @@ import { Link } from "react-router-dom";
 
 class viewCourses extends Component {
   state = {
-    assigedCourses: [{ id: "", name: "" }],
-    assignedDocumets: [{ id: "", name: "" }]
+    assigedCourses: [{ name: "", id: "" }],
+    assignedDocumets: [{ id: "", name: "" }],
+    selectedDocumentId: ""
   };
 
   getCourses = () => {
-    console.log("Here");
-    fetch("http://localhost:9000/assigned/getCourses")
-      .then(res => res.json())
+    const data = {
+      userId: localStorage.getItem("userId")
+    };
+
+    axios
+      .get("http://localhost:9000/trainee/courses/getCourses", {
+        params: {
+          userId: data.userId
+        }
+      })
       .then(res =>
-        res.map(row => {
+        res.data.map(row => {
           this.setState({
             assigedCourses: [
               ...this.state.assigedCourses,
@@ -23,18 +31,24 @@ class viewCourses extends Component {
           });
           return row;
         })
-      );
+      )
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   CourseSelection = e => {
     const courseId = e.target.value;
+
     axios
-      .post("http://localhost:9000/trainee/getDocuments", {
-        courseId: courseId
+      .get("http://localhost:9000/trainee/documents/getDocuments", {
+        params: {
+          courseId: courseId,
+          userId: localStorage.getItem("userId")
+        }
       })
-      .then(res => res.json())
       .then(res =>
-        res.map(row => {
+        res.data.map(row => {
           this.setState({
             assignedDocumets: [
               ...this.state.assignedDocumets,
@@ -43,9 +57,16 @@ class viewCourses extends Component {
           });
           return row;
         })
-      );
+      )
+      .catch(error => {
+        console.log(error);
+      });
   };
 
+  documentSelection = e => {
+    e.preventDefault();
+    this.setState({ selectedDocumentId: e.target.value });
+  };
   componentDidMount() {
     this.getCourses();
   }
@@ -73,11 +94,15 @@ class viewCourses extends Component {
                 </select>
               </div>
               <div className="form-group">
-                <label htmlFor="document">Select Document</label>
-                <select className="form-control" name="courses">
+                <label htmlFor="documents">Select Document</label>
+                <select
+                  className="form-control"
+                  name="documents"
+                  onChange={this.documentSelection}
+                >
                   {this.state.assignedDocumets.map((item, i) => {
                     return (
-                      <option key={i} id={item.id}>
+                      <option key={i} value={item.id}>
                         {item.name}
                       </option>
                     );
@@ -87,7 +112,10 @@ class viewCourses extends Component {
               <div className="form-group">
                 <button className="btn btn-primary btn-lg btn-block">
                   <Link
-                    to="/traineeDashboard/showDocument"
+                    to={{
+                      pathname: "/traineeDashboard/showDocument",
+                      data: this.state.selectedDocumentId
+                    }}
                     className="nav-link"
                   >
                     Submit

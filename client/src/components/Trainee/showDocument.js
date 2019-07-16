@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import axios from "axios";
+import axios from "axios";
 
 class viewCourses extends Component {
   constructor() {
@@ -10,11 +10,17 @@ class viewCourses extends Component {
       documentDescription: ""
     };
   }
-  componentDidMount() {
-    fetch("http://localhost:9000/trainee/getDocument")
-      .then(res => res.json())
+
+  getDocument() {
+    const { data } = this.props.location;
+    axios
+      .get("http://localhost:9000/trainee/documents/selectedDocument", {
+        params: {
+          documentId: data
+        }
+      })
       .then(res =>
-        res.map(row => {
+        res.data.map(row => {
           this.setState({
             documentId: row.id,
             documentName: row.name,
@@ -23,6 +29,9 @@ class viewCourses extends Component {
           return row;
         })
       );
+  }
+  componentDidMount() {
+    this.getDocument();
   }
   render() {
     return (

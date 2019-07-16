@@ -6,19 +6,10 @@ const cors = require("cors");
 const connection = require("../database/db");
 documents.use(cors());
 
-documents.post("/getDocuments", (req, res, next) => {
-  connection.query(
-    "SELECT * FROM Documents where courseId =",
-    req.body.courseId,
-    function(err, results, fields) {
-      console.log(results);
-    }
-  );
-});
-
 documents.get("/getDocument", (req, res, next) => {
+  const params = [req.body.userId, req.body.courseId];
   connection.query(
-    "SELECT * FROM document WHERE id = 1 AND id IN (SELECT DocumentId FROM assigneddocument where assignedcourseId = 1)",
+    "SELECT * FROM document where document.id IN (SELECT assigneddocument.DocumentId FROM assigneddocument where assigneddocument.assignedcourseId IN (SELECT id from assignedcourse where assignedcourse.userId = ? AND assignedcourse.courseId = ?))",
     function(err, result) {
       if (err) {
         console.log(err);

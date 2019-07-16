@@ -29,7 +29,24 @@ class Login extends Component {
         email: user.email,
         password: user.password
       })
-      .then(res => console.log(res));
+      .then(res => {
+        if (res.data.length === 0) {
+          alert("Invalid username or passowrd");
+        } else {
+          console.log(res);
+          if (res.data[0].name === "Manager") {
+            localStorage.setItem("userId", res.data[0].id);
+            this.props.history.push(`/mangerdashboard`);
+            // console.log(localStorage.getItem("userId"));
+          } else if (res.data[0].name === "Trainee") {
+            localStorage.setItem("userId", res.data[0].id);
+            this.props.history.push(`/traineeDashboard`);
+          } else {
+            localStorage.setItem("userId", res.data[0].id);
+            this.props.history.push(`/adduser`);
+          }
+        }
+      });
   };
 
   render() {

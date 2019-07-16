@@ -12,7 +12,11 @@ users.post("/register", (req, res, err) => {
     [req.body.email, req.body.name, req.body.password, req.body.roleId],
     function(err, result, fields) {
       if (err) throw err;
-      res.json(result);
+      else {
+        // res.append("userid", result.insertId);
+        res.json(result);
+        // console.log(result.insertId);
+      }
     }
   );
 });
@@ -21,10 +25,10 @@ users.post("/login", (req, res, err) => {
   console.log(req.body.email, req.body.password);
   const params = [req.body.email, req.body.password];
   connection.query(
-    "SELECT role.name from user LEFT JOIN Role ON user.roleId = role.id WHERE user.email =? AND Password =?",
+    "SELECT role.name,user.id from user LEFT JOIN Role ON user.roleId = role.id WHERE user.email =? AND Password =?",
     params,
     function(err, result, fields) {
-      if (err) console.log(err);
+      if (err) throw err;
       res.json(result);
     }
   );
