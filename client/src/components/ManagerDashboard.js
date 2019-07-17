@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import CreateCourse from "./CreateCourse";
+// import CreateCourse from "./CreateCourse";
 import AssignCourse from "./AssignCourse";
 import AddDocument from "./AddDocument";
 import CourseDetails from "./courseDetails";
 import NavBar from "./NavBar";
+import CreateCourse from "../components/Manager/createCourse";
 
 class ManagerDashboard extends Component {
   state = {};
