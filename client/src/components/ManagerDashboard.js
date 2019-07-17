@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 // import CreateCourse from "./CreateCourse";
-import AssignCourse from "./AssignCourse";
+import AssignCourse from "../components/Manager/assignCourse";
 import AddDocument from "./AddDocument";
 import CourseDetails from "./courseDetails";
 import NavBar from "./NavBar";

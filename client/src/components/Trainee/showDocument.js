@@ -39,8 +39,6 @@ class viewCourses extends Component {
   };
 
   markDocumentComplete = () => {
-    // const { data } = this.props.location;
-    console.log("HERE");
     axios
       .post("http://localhost:9000/trainee/documents/markComplete", {
         documentId: this.state.documentId,
