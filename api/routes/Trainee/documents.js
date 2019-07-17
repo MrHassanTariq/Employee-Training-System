@@ -36,4 +36,24 @@ documents.get("/selectedDocument", (req, res, next) => {
   );
 });
 
+documents.post("/markComplete", (req, res, next) => {
+  const params = [
+    req.body.documentId,
+    parseInt(req.body.userId),
+    parseInt(req.body.courseId)
+  ];
+  console.log(params);
+  connection.query(
+    "UPDATE assigneddocument SET completed = 1 WHERE assigneddocument.DocumentId = ? AND assigneddocument.assignedcourseId IN (SELECT assignedcourse.id FROM assignedcourse where assignedcourse.userId = ? AND assignedcourse.courseId = ?)",
+    params,
+    function(err, result) {
+      if (err) {
+        throw err;
+      } else {
+        console.log(result);
+      }
+    }
+  );
+});
+
 module.exports = documents;

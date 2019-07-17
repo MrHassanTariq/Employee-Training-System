@@ -7,7 +7,8 @@ class viewCourses extends Component {
   state = {
     assigedCourses: [{ name: "", id: "" }],
     assignedDocumets: [{ id: "", name: "" }],
-    selectedDocumentId: ""
+    selectedDocumentId: "",
+    courseId: ""
   };
 
   getCourses = () => {
@@ -38,29 +39,29 @@ class viewCourses extends Component {
   };
 
   CourseSelection = e => {
-    const courseId = e.target.value;
-
-    axios
-      .get("http://localhost:9000/trainee/documents/getDocuments", {
-        params: {
-          courseId: courseId,
-          userId: localStorage.getItem("userId")
-        }
-      })
-      .then(res =>
-        res.data.map(row => {
-          this.setState({
-            assignedDocumets: [
-              ...this.state.assignedDocumets,
-              { id: row.id, name: row.name }
-            ]
-          });
-          return row;
+    this.setState({ courseId: e.target.value }, function() {
+      axios
+        .get("http://localhost:9000/trainee/documents/getDocuments", {
+          params: {
+            courseId: this.state.courseId,
+            userId: localStorage.getItem("userId")
+          }
         })
-      )
-      .catch(error => {
-        console.log(error);
-      });
+        .then(res =>
+          res.data.map(row => {
+            this.setState({
+              assignedDocumets: [
+                ...this.state.assignedDocumets,
+                { id: row.id, name: row.name }
+              ]
+            });
+            return row;
+          })
+        )
+        .catch(error => {
+          console.log(error);
+        });
+    });
   };
 
   documentSelection = e => {
@@ -114,7 +115,11 @@ class viewCourses extends Component {
                   <Link
                     to={{
                       pathname: "/traineeDashboard/showDocument",
-                      data: this.state.selectedDocumentId
+                      data: [
+                        this.state.selectedDocumentId,
+                        this.state.courseId,
+                        localStorage.getItem("userId")
+                      ]
                     }}
                     className="nav-link"
                   >
