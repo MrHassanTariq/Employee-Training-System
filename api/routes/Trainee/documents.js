@@ -50,7 +50,7 @@ documents.post("/markComplete", (req, res, next) => {
       if (err) {
         throw err;
       } else {
-        console.log(result);
+        res.json(result);
       }
     }
   );

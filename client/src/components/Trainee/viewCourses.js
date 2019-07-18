@@ -38,7 +38,12 @@ class viewCourses extends Component {
       });
   };
 
+  clearDocuments = () => {
+    this.setState({ assignedDocumets: [{ id: "", name: "" }] });
+  };
+
   CourseSelection = e => {
+    this.clearDocuments();
     this.setState({ courseId: e.target.value }, function() {
       axios
         .get("http://localhost:9000/trainee/documents/getDocuments", {

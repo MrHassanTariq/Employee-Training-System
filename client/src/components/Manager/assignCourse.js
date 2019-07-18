@@ -52,7 +52,6 @@ class assignCourse extends Component {
           }
         })
         .then(res => {
-          console.log(res);
           res.data.map((row, i) => {
             this.setState({
               users: [...this.state.users, { value: row.id, label: row.name }]

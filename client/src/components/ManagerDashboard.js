@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 // import CreateCourse from "./CreateCourse";
 import AssignCourse from "../components/Manager/assignCourse";
-import AddDocument from "./AddDocument";
+import AddDocument from "../components/Manager/addDocument";
 import CourseDetails from "./courseDetails";
 import NavBar from "./NavBar";
 import CreateCourse from "../components/Manager/createCourse";

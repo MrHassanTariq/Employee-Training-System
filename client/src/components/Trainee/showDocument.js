@@ -45,7 +45,7 @@ class viewCourses extends Component {
         courseId: this.state.courseId,
         userId: this.state.userId
       })
-      .then(res => alert("Dcoument marked as complete"))
+      .then(res => this.props.history.push(`/traineeDashboard`))
       .catch(error => {
         console.log(error);
       });

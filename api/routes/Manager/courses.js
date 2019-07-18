@@ -28,7 +28,6 @@ courses.post("/createCourse", (req, res, next) => {
 
 courses.get("/getCourses", (req, res, next) => {
   const params = [req.query.userId];
-  console.log(req.query.userId);
   connection.query(
     "SELECT * FROM course WHERE course.userId =?",
     req.query.userId,

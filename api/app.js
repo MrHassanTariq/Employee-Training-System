@@ -12,6 +12,7 @@ var courseRouter = require("./routes/Courses");
 var documentsRouter = require("./routes/Trainee/documents");
 var traineeCourses = require("./routes/Trainee/courses");
 var ManagerCourses = require("./routes/Manager/courses");
+var ManagerDocuments = require("./routes/Manager/documents");
 
 var app = express();
 
@@ -33,6 +34,7 @@ app.use("/assigned", courseRouter);
 app.use("/trainee/documents", documentsRouter);
 app.use("/trainee/courses", traineeCourses);
 app.use("/manager/courses", ManagerCourses);
+app.use("/manager/documents", ManagerDocuments);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
