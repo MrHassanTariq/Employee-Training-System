@@ -56,6 +56,21 @@ courses.get("/usersInCourse", (req, res, next) => {
   );
 });
 
+courses.get("/getCourseDetails", (req, res, next) => {
+  const params = [req.query.courseId];
+  connection.query(
+    "SELECT user.name,user.email,assignedcourse.completedOn,assignedcourse.completed from User JOIN assignedcourse ON user.id = assignedcourse.userId where assignedcourse.courseId =?",
+    params,
+    function(err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json(result);
+      }
+    }
+  );
+});
+
 courses.post("/assignCourses", (req, res, next) => {
   const paramsQuery1 = [req.body.params.courseId];
   connection.query(
