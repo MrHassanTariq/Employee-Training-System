@@ -72,8 +72,9 @@ documents.post("/markComplete", (req, res, next) => {
                     console.log(err);
                   } else {
                     if (completedDocuments === result.noOfDocuments) {
+                      const today = new Date();
                       connection.query(
-                        `UPDATE assignedcourse SET completed=1 where assignedcourse.userId = ${parseInt(
+                        `UPDATE assignedcourse SET completed = 1 AND completedOn = ${today} where assignedcourse.userId = ${parseInt(
                           req.body.userId
                         )} AND assignedcourse.courseId = ${parseInt(
                           req.body.courseId

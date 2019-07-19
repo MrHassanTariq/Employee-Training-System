@@ -43,7 +43,7 @@ class Login extends Component {
             this.props.history.push(`/traineeDashboard`);
           } else {
             localStorage.setItem("userId", res.data[0].id);
-            this.props.history.push(`/adduser`);
+            this.props.history.push(`/adminDashboard`);
           }
         }
       });

@@ -80,6 +80,7 @@ courses.post("/assignCourses", (req, res, next) => {
       if (err) {
         res.json({ error: true });
       } else {
+        const today = new Date();
         const paramsQuery2 = [
           req.body.params.userId,
           req.body.params.courseId,
@@ -87,7 +88,7 @@ courses.post("/assignCourses", (req, res, next) => {
           result[0].NoOfDocuments
         ];
         connection.query(
-          "INSERT INTO assignedcourse (userId,courseId,completed,noOfDocuments) VALUES(?,?,?,?)",
+          "INSERT INTO assignedcourse (userId,courseId,completed,noOfDocuments,completedOn) VALUES(?,?,?,?,null)",
           paramsQuery2,
           function(err, result) {
             if (err) {
