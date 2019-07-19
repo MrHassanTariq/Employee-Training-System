@@ -53,6 +53,7 @@ class viewCourses extends Component {
           }
         })
         .then(res =>
+          // res => console.log(res)
           res.data.map(row => {
             this.setState({
               assignedDocumets: [

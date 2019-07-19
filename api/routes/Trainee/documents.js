@@ -9,11 +9,12 @@ documents.use(cors());
 documents.get("/getDocuments", (req, res, next) => {
   const params = [req.query.userId, req.query.courseId];
   connection.query(
-    "SELECT document.id,document.name FROM document where document.id IN (SELECT assigneddocument.DocumentId FROM assigneddocument where assigneddocument.assignedcourseId IN (SELECT id from assignedcourse where assignedcourse.userId = ? AND assignedcourse.courseId = ?))",
+    "SELECT document.id,document.name FROM document where document.id IN (SELECT assigneddocument.DocumentId FROM assigneddocument where assigneddocument.completed=0 AND assigneddocument.assignedcourseId IN (SELECT id from assignedcourse where assignedcourse.userId = ? AND assignedcourse.courseId = ?))",
     params,
     function(err, result) {
       if (err) {
         res.json({ err: true });
+        // console.log(err);
       } else {
         res.json(result);
       }
@@ -37,20 +38,63 @@ documents.get("/selectedDocument", (req, res, next) => {
 });
 
 documents.post("/markComplete", (req, res, next) => {
-  const params = [
+  const paramsQuery1 = [
     req.body.documentId,
     parseInt(req.body.userId),
     parseInt(req.body.courseId)
   ];
-  console.log(params);
   connection.query(
     "UPDATE assigneddocument SET completed = 1 WHERE assigneddocument.DocumentId = ? AND assigneddocument.assignedcourseId IN (SELECT assignedcourse.id FROM assignedcourse where assignedcourse.userId = ? AND assignedcourse.courseId = ?)",
-    params,
+    paramsQuery1,
     function(err, result) {
       if (err) {
-        throw err;
+        console.log(err);
       } else {
-        res.json(result);
+        const paramsQuery2 = [
+          parseInt(req.body.userId),
+          parseInt(req.body.courseId)
+        ];
+        connection.query(
+          "SELECT Count(assigneddocument.id) as CompletedDocuments from assigneddocument WHERE assigneddocument.completed =1 AND assigneddocument.assignedcourseId IN (SELECT assignedcourse.id FROM assignedcourse where assignedcourse.userId = ? AND assignedcourse.courseId = ?)",
+          paramsQuery2,
+          function(err, result) {
+            if (err) {
+              // res.json({ err: true });
+              console.log(err);
+            } else {
+              const completedDocuments = result.CompletedDocuments;
+              const paramsQuery3 = paramsQuery2;
+              connection.query(
+                "SELECT assignedcourse.noOfDocuments as noOfDocuments from assignedcourse where assignedcourse.userId = ? and assignedcourse.courseId =?",
+                paramsQuery3,
+                function(err, result) {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    if (completedDocuments === result.noOfDocuments) {
+                      connection.query(
+                        `UPDATE assignedcourse SET completed=1 where assignedcourse.userId = ${parseInt(
+                          req.body.userId
+                        )} AND assignedcourse.courseId = ${parseInt(
+                          req.body.courseId
+                        )}`,
+                        function(err, result) {
+                          if (err) {
+                            res.json({ err: true });
+                          } else {
+                            res.json(result);
+                          }
+                        }
+                      );
+                    }
+                  }
+                }
+              );
+            }
+          }
+        );
+        // res.json(result);
+        console.log(result);
       }
     }
   );

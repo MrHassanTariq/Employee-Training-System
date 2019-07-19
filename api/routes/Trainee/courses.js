@@ -9,7 +9,7 @@ courses.use(cors());
 courses.get("/getCourses", (req, res, next) => {
   const params = [req.query.userId];
   connection.query(
-    "SELECT course.name,course.id from course WHERE course.id IN (SELECT assignedcourse.courseId FROM assignedcourse where assignedcourse.userId =?)",
+    "SELECT course.name,course.id from course WHERE course.id IN (SELECT assignedcourse.courseId FROM assignedcourse where assignedcourse.completed =0 AND assignedcourse.userId =?)",
     params,
     function(err, result) {
       if (err) {
