@@ -2,31 +2,33 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 class NavBar extends Component {
-  logOut(e) {
+  logOut = e => {
     e.preventDefault();
-    localStorage.removeItem("usertoken");
+    sessionStorage.setItem("isLoggedIn", false);
     this.props.history.push(`/`);
-  }
-
-  // render() {
-  //   const loginRegLink = (
-  //     <ul className="navbar-nav">
-  //       <li className="nav-item">
-  //         <Link to="/login" className="nav-link">
-  //           Login
-  //         </Link>
-  //       </li>
-  //       <li className="nav-item">
-  //         <Link to="/register" className="nav-link">
-  //           Register
-  //         </Link>
-  //       </li>
-  //     </ul>
-  //   );
-  // }
+  };
 
   state = {};
   render() {
+    const loginRegLink = (
+      <ul className="navbar-nav">
+        <li className="nav-item">
+          <Link to="/login" className="nav-link">
+            Login
+          </Link>
+        </li>
+      </ul>
+    );
+
+    const userLink = (
+      <ul className="navbar-nav">
+        <li className="nav-item">
+          <a href="" onClick={this.logOut} className="nav-link">
+            Logout
+          </a>
+        </li>
+      </ul>
+    );
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark rounded">
         <button
@@ -72,7 +74,7 @@ class NavBar extends Component {
               </Link>
             </li>
           </ul>
-          {/* {localStorage.usertoken ? userLink : loginRegLink} */}
+          {sessionStorage.getItem("isLoggedIn") ? userLink : loginRegLink}
         </div>
       </nav>
     );

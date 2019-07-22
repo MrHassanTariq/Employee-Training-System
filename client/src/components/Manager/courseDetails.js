@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Dashboard from "../Dashboard";
 
 class CreateCourse extends Component {
   constructor() {
@@ -16,7 +17,7 @@ class CreateCourse extends Component {
     axios
       .get("http://localhost:9000/manager/courses/getCourses", {
         params: {
-          userId: localStorage.getItem("userId")
+          userId: sessionStorage.getItem("userId")
         }
       })
       .then(res => {
@@ -50,7 +51,7 @@ class CreateCourse extends Component {
         axios
           .get("http://localhost:9000/manager/courses/getCourseDetails", {
             params: {
-              userId: localStorage.getItem("userId"),
+              userId: sessionStorage.getItem("userId"),
               courseId: this.state.courseId
             }
           })
@@ -83,7 +84,7 @@ class CreateCourse extends Component {
     this.getAllCourses();
   }
   render() {
-    return (
+    const courseDetail = (
       <div className="container">
         <div className="row">
           <div className="col-md-6 mt-5 mx-auto">
@@ -139,6 +140,7 @@ class CreateCourse extends Component {
         </div>
       </div>
     );
+    return <Dashboard innerContent={courseDetail} />;
   }
 }
 

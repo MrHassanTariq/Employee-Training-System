@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Dashboard from "../Dashboard";
 
 class createCourse extends Component {
   state = {
@@ -12,31 +13,38 @@ class createCourse extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  createCourse = () => {
+  createCourse = event => {
+    event.preventDefault();
     console.log(
-      localStorage.getItem("userId"),
+      sessionStorage.getItem("userId"),
       this.state.courseName,
       this.state.endDate
     );
     axios
       .post("http://localhost:9000/manager/courses/createCourse", {
         params: {
-          userId: localStorage.getItem("userId"),
+          userId: sessionStorage.getItem("userId"),
           courseName: this.state.courseName,
           endDate: this.state.endDate
         }
       })
-      .then(res => this.props.history.push(`/createCourse`))
+      .then(res => {
+        if (res.data.hasOwnProperty("status")) {
+          alert("Course already exists. Choose a valid name");
+        } else {
+          this.props.history.push(`/createCourse`);
+        }
+      })
       .catch(error => {
         console.log(error);
       });
   };
   render() {
-    return (
+    const createCourse = (
       <div className="container">
         <div className="row">
           <div className="col-md-6 mt-5 mx-auto">
-            <form onSubmit={this.createCourse}>
+            <form>
               <h1 className="h3 font-weight-normal">Create Course</h1>
               <div className="form-group">
                 <label htmlFor="courseName">Course Name</label>
@@ -71,6 +79,7 @@ class createCourse extends Component {
         </div>
       </div>
     );
+    return <Dashboard innerContent={createCourse} name="createCourse" />;
   }
 }
 

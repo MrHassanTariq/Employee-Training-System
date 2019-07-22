@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Dashboard from "../Dashboard";
 class AddDocument extends Component {
   constructor() {
     super();
@@ -15,7 +16,7 @@ class AddDocument extends Component {
     axios
       .get("http://localhost:9000/manager/courses/getCourses", {
         params: {
-          userId: localStorage.getItem("userId")
+          userId: sessionStorage.getItem("userId")
         }
       })
       .then(res => {
@@ -62,7 +63,7 @@ class AddDocument extends Component {
     this.getAllCourses();
   }
   render() {
-    return (
+    const createDocument = (
       <div className="container">
         <div className="row">
           <div className="col-md-6 mt-5 mx-auto">
@@ -119,6 +120,7 @@ class AddDocument extends Component {
         </div>
       </div>
     );
+    return <Dashboard innerContent={createDocument} />;
   }
 }
 

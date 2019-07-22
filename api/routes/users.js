@@ -8,14 +8,28 @@ users.use(cors());
 
 users.post("/register", (req, res, err) => {
   connection.query(
-    "INSERT INTO User (email,name,password,roleId) VALUES (?,?,?,?)",
-    [req.body.email, req.body.name, req.body.password, req.body.roleId],
-    function(err, result, fields) {
-      if (err) throw err;
-      else {
-        // res.append("userid", result.insertId);
-        res.json(result);
-        // console.log(result.insertId);
+    "SELECT * FROM user where user.email = ?",
+    [req.body.email],
+    function(err, result) {
+      if (err) {
+        res.json({ err: true });
+      } else {
+        if (result.length !== 0) {
+          res.json({ status: "User Exists" });
+        } else {
+          connection.query(
+            "INSERT INTO User (email,name,password,roleId) VALUES (?,?,?,?)",
+            [req.body.email, req.body.name, req.body.password, req.body.roleId],
+            function(err, result, fields) {
+              if (err) throw err;
+              else {
+                // res.append("userid", result.insertId);
+                res.json(result);
+                // console.log(result.insertId);
+              }
+            }
+          );
+        }
       }
     }
   );

@@ -33,22 +33,35 @@ class Login extends Component {
         if (res.data.length === 0) {
           alert("Invalid username or passowrd");
         } else {
-          console.log(res);
+          sessionStorage.setItem("isLoggedIn", true);
           if (res.data[0].name === "Manager") {
-            localStorage.setItem("userId", res.data[0].id);
-            this.props.history.push(`/mangerdashboard`);
-            // console.log(localStorage.getItem("userId"));
+            sessionStorage.setItem("userId", res.data[0].id);
+            sessionStorage.setItem("userType", "Manager");
+            // console.log(sessionStorage.getItem("userId"));
           } else if (res.data[0].name === "Trainee") {
-            localStorage.setItem("userId", res.data[0].id);
-            this.props.history.push(`/traineeDashboard`);
+            sessionStorage.setItem("userId", res.data[0].id);
+            sessionStorage.setItem("userType", "Trainee");
           } else {
-            localStorage.setItem("userId", res.data[0].id);
-            this.props.history.push(`/adminDashboard`);
+            sessionStorage.setItem("userId", res.data[0].id);
+            sessionStorage.setItem("userType", "Admin");
           }
+          this.props.history.push(`/Dashboard`);
         }
       });
   };
 
+  componentDidMount() {
+    console.log(sessionStorage.getItem("userType"));
+    if (sessionStorage.getItem("isLoggedIn")) {
+      if (sessionStorage.getItem("userType") === "Manager") {
+        this.props.history.push(`/mangerDashboard`);
+      } else if (sessionStorage.getItem("userType") === "Trainee") {
+        this.props.history.push(`/traineeDashboard`);
+      } else {
+        this.props.history.push(`/AddUser`);
+      }
+    }
+  }
   render() {
     return (
       <div className="container">

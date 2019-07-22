@@ -2,6 +2,7 @@ import React, { Component } from "react";
 // import { register } from "./userFunctions";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Dashboard from "../Dashboard";
 
 class viewCourses extends Component {
   state = {
@@ -13,7 +14,7 @@ class viewCourses extends Component {
 
   getCourses = () => {
     const data = {
-      userId: localStorage.getItem("userId")
+      userId: sessionStorage.getItem("userId")
     };
 
     axios
@@ -49,7 +50,7 @@ class viewCourses extends Component {
         .get("http://localhost:9000/trainee/documents/getDocuments", {
           params: {
             courseId: this.state.courseId,
-            userId: localStorage.getItem("userId")
+            userId: sessionStorage.getItem("userId")
           }
         })
         .then(res =>
@@ -78,7 +79,7 @@ class viewCourses extends Component {
     this.getCourses();
   }
   render() {
-    return (
+    const viewCourse = (
       <div className="container">
         <div className="row">
           <div className="col-md-6 mt-5 mx-auto">
@@ -124,7 +125,7 @@ class viewCourses extends Component {
                       data: [
                         this.state.selectedDocumentId,
                         this.state.courseId,
-                        localStorage.getItem("userId")
+                        sessionStorage.getItem("userId")
                       ]
                     }}
                     className="nav-link"
@@ -138,6 +139,7 @@ class viewCourses extends Component {
         </div>
       </div>
     );
+    return <Dashboard innerContent={viewCourse} />;
   }
 }
 

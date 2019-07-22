@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 // import MultiSelectReact from "multi-select-react"
 import Select from "react-select";
+import Dashboard from "../Dashboard";
 
 class assignCourse extends Component {
   state = {
@@ -17,7 +18,7 @@ class assignCourse extends Component {
     axios
       .get("http://localhost:9000/manager/courses/getCourses", {
         params: {
-          userId: localStorage.getItem("userId")
+          userId: sessionStorage.getItem("userId")
         }
       })
       .then(res => {
@@ -48,7 +49,7 @@ class assignCourse extends Component {
         .get("http://localhost:9000/manager/courses/usersInCourse", {
           params: {
             courseId: this.state.courseId,
-            userId: localStorage.getItem("userId")
+            userId: sessionStorage.getItem("userId")
           }
         })
         .then(res => {
@@ -101,7 +102,7 @@ class assignCourse extends Component {
     this.getCourses();
   }
   render() {
-    return (
+    const assignCourse = (
       <div className="container">
         <div className="row">
           <div className="col-md-6 mt-5 mx-auto">
@@ -146,6 +147,7 @@ class assignCourse extends Component {
         </div>
       </div>
     );
+    return <Dashboard innerContent={assignCourse} />;
   }
 }
 

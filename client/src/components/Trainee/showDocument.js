@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Dashbaord from "../Dashboard";
 
 class viewCourses extends Component {
   constructor() {
@@ -55,7 +56,7 @@ class viewCourses extends Component {
     this.getDocument();
   }
   render() {
-    return (
+    const showDocument = (
       <div className="container">
         <div className="row">
           <div className="col-md-6 mt-5 mx-auto">
@@ -94,6 +95,7 @@ class viewCourses extends Component {
         </div>
       </div>
     );
+    return <Dashbaord innerContent={showDocument} />;
   }
 }
 

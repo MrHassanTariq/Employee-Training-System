@@ -7,20 +7,38 @@ const connection = require("../../database/db");
 courses.use(cors());
 
 courses.post("/createCourse", (req, res, next) => {
-  const params = [
-    req.body.params.courseName,
-    req.body.params.userId,
-    req.body.params.endDate
-  ];
-
+  // console.log("Here");
   connection.query(
-    "INSERT INTO course (name,userId,endDate) VALUES(?,?,?)",
-    params,
+    "SELECT * FROM course where course.name =?",
+    req.body.params.courseName,
     function(err, result) {
       if (err) {
-        res.json({ error: true });
+        // console.log(err);
+        res.json({ err: true });
       } else {
-        res.json(result);
+        console.log(result);
+        if (result.length === 0) {
+          const params = [
+            req.body.params.courseName,
+            req.body.params.userId,
+            req.body.params.endDate
+          ];
+
+          connection.query(
+            "INSERT INTO course (name,userId,endDate) VALUES(?,?,?)",
+            params,
+            function(err, result) {
+              if (err) {
+                res.json({ error: true });
+              } else {
+                res.json(result);
+              }
+            }
+          );
+        } else {
+          console.log("Here");
+          res.json({ status: "Course Exists" });
+        }
       }
     }
   );

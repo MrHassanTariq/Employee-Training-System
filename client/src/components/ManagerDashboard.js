@@ -13,7 +13,6 @@ class ManagerDashboard extends Component {
     return (
       <div>
         <Router>
-          <NavBar />
           <div className="container">
             <Route exact path="/createCourse" component={CreateCourse} />
             <Route exact path="/assignCourse" component={AssignCourse} />

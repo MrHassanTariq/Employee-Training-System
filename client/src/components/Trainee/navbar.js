@@ -4,12 +4,29 @@ import { Link } from "react-router-dom";
 class NavBar extends Component {
   logOut(e) {
     e.preventDefault();
-    localStorage.removeItem("usertoken");
+    sessionStorage.removeItem("usertoken");
     this.props.history.push(`/`);
   }
-
-  state = {};
   render() {
+    const loginRegLink = (
+      <ul className="navbar-nav">
+        <li className="nav-item">
+          <Link to="/login" className="nav-link">
+            Login
+          </Link>
+        </li>
+      </ul>
+    );
+
+    const userLink = (
+      <ul className="navbar-nav">
+        <li className="nav-item">
+          <Link to="/login" className="nav-link">
+            LogOut
+          </Link>
+        </li>
+      </ul>
+    );
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark rounded">
         <button
@@ -39,8 +56,10 @@ class NavBar extends Component {
                 View Courses
               </Link>
             </li>
+            {sessionStorage.getItem("isLoggedIn") === true
+              ? userLink
+              : loginRegLink}
           </ul>
-          {/* {localStorage.usertoken ? userLink : loginRegLink} */}
         </div>
       </nav>
     );
