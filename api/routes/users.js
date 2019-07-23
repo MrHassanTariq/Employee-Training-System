@@ -39,11 +39,12 @@ users.post("/login", (req, res, err) => {
   console.log(req.body.email, req.body.password);
   const params = [req.body.email, req.body.password];
   connection.query(
-    "SELECT role.name,user.id from user LEFT JOIN Role ON user.roleId = role.id WHERE user.email =? AND Password =?",
+    "SELECT role.name AS RoleName,user.id,user.name AS UserName from user LEFT JOIN Role ON user.roleId = role.id WHERE user.email =? AND Password =?",
     params,
     function(err, result, fields) {
       if (err) throw err;
       res.json(result);
+      // console.log(result);
     }
   );
 });

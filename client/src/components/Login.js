@@ -30,17 +30,19 @@ class Login extends Component {
         password: user.password
       })
       .then(res => {
+        console.log(res);
         sessionStorage.setItem("isLoggedIn", false);
         if (res.data.length === 0) {
           alert("Invalid username or passowrd");
         } else {
           sessionStorage.setItem("isLoggedIn", true);
-          if (res.data[0].name === "Manager") {
+          sessionStorage.setItem("userName", res.data[0].UserName);
+          if (res.data[0].RoleName === "Manager") {
             sessionStorage.setItem("userId", res.data[0].id);
             sessionStorage.setItem("userType", "Manager");
             this.props.history.push(`/manager/home`);
             // console.log(sessionStorage.getItem("userId"));
-          } else if (res.data[0].name === "Trainee") {
+          } else if (res.data[0].RoleName === "Trainee") {
             sessionStorage.setItem("userId", res.data[0].id);
             sessionStorage.setItem("userType", "Trainee");
             this.props.history.push(`/trainee/home`);
@@ -67,7 +69,7 @@ class Login extends Component {
   }
   render() {
     return (
-      <div className="container">
+      <div id="LoginBackground" className="container">
         <div className="row">
           <div className="col-md-6 mt-5 mx-auto">
             <form onSubmit={this.onSubmit}>

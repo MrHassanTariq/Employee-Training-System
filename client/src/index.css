@@ -237,5 +237,6 @@ a.article:hover {
   width: 300px;
 }
 
-#cardImage {
+#LoginBackground {
+  background-image: url("C://Users//admin//Documents//Employee-Training-System//client//src//components//Images//LoginBackground.jpg");
 }

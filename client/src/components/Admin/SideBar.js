@@ -11,8 +11,6 @@ class SideBar extends Component {
         </div>
 
         <ul className="list-unstyled components">
-          <p>Welcome, User</p>
-
           <li>
             <Link to="/admin/home" className="nav-link">
               Home

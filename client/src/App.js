@@ -4,9 +4,6 @@ import "./App.css";
 
 import AddUser from "./components/Admin/AddUser";
 import Login from "./components/Login";
-import ManagerDashboard from "./components/ManagerDashboard";
-import TraineeDashboard from "./components/Trainee/traineeDashboard";
-import AdminDashboard from "./components/Admin/Admin Dashboard";
 import CreateCourse from "../src/components/Manager/createCourse";
 import Dashboard from "./components/Dashboard";
 import AssignCourse from "../src/components/Manager/assignCourse";

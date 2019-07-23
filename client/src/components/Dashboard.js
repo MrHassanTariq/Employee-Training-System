@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import AdminSideBar from "./Admin/SideBar";
 import ManagerSideBar from "./Manager/SideBar";
 import TraineeSideBar from "./Trainee/SideBar";
+import navbar from "./NavBar";
 import { executeJS } from "./JavaScript/index";
+import NavBar from "./NavBar";
 
 class Dashboard extends Component {
   state = {};
@@ -42,30 +44,8 @@ class Dashboard extends Component {
                 <i class="fas fa-align-justify" />
               </button>
 
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="nav navbar-nav ml-auto">
-                  <li class="nav-item active">
-                    <a class="nav-link" href="#">
-                      Page
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">
-                      Page
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">
-                      Page
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">
-                      Page
-                    </a>
-                  </li>
-                </ul>
-              </div>
+              {/* NavBar Content */}
+              <NavBar />
             </div>
           </nav>
 

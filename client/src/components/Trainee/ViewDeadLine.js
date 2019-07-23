@@ -35,9 +35,10 @@ class DeadLine extends Component {
       <div className="container">
         <div className="row">
           <div className="col-md-6 mx-auto mt-5">
-            <table className="table">
-              <thead>
+            <table className="table table-hover">
+              <thead className="thead-dark">
                 <tr>
+                  <th>#</th>
                   <th>Course Name</th>
                   <th>DeadLine</th>
                 </tr>
@@ -49,6 +50,7 @@ class DeadLine extends Component {
                   } else {
                     return (
                       <tr>
+                        <td>{i}</td>
                         <td>{item.name}</td>
                         <td>{item.DeadLine}</td>
                       </tr>

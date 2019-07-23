@@ -107,9 +107,10 @@ class CreateCourse extends Component {
               <h1 className="h3 font-weight-normal">
                 Course Details: {this.state.courseName}
               </h1>
-              <table className="table">
-                <thead>
+              <table className="table table-hover">
+                <thead className="thead-dark">
                   <tr>
+                    <th>#</th>
                     <th>UserName</th>
                     <th>Email</th>
                     <th>Status</th>
@@ -123,6 +124,7 @@ class CreateCourse extends Component {
                     } else {
                       return (
                         <tr>
+                          <td>{i}</td>
                           <td>{item.name}</td>
                           <td>{item.email}</td>
                           <td>
