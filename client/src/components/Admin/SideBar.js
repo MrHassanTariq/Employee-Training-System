@@ -24,13 +24,17 @@ class SideBar extends Component {
             </Link>
           </li>
           <li>
-            <a href="#">View Manager</a>
+            <Link to="/viewManagers" className="nav-link">
+              View Managers
+            </Link>
           </li>
           <li>
-            <a href="#">View Trainees</a>
+            <Link to="/viewTrainees" className="nav-link">
+              View Trainees
+            </Link>
           </li>
           <li>
-            <a href="#">View Courses</a>
+            <a href="/viewCourses">View Courses</a>
           </li>
         </ul>
       </nav>

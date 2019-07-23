@@ -14,7 +14,7 @@ class SideBar extends Component {
           <p>Welcome, User</p>
 
           <li>
-            <Link to="#" className="nav-link">
+            <Link to="/trainee/home" className="nav-link">
               Home
             </Link>
           </li>
@@ -24,7 +24,7 @@ class SideBar extends Component {
             </Link>
           </li>
           <li>
-            <Link to="#" className="nav-link">
+            <Link to="/trainee/viewDeadlines" className="nav-link">
               View Deadlines
             </Link>
           </li>

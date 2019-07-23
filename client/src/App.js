@@ -15,6 +15,12 @@ import CourseDetails from "../src/components/Manager/courseDetails";
 import viewCourses from "./components/Trainee/viewCourses";
 import ShowDocument from "./components/Trainee/showDocument";
 import Home from "./components/Admin/Home";
+import ViewManager from "./components/Admin/viewManagers";
+import viewTrainees from "./components/Admin/ViewTrainee";
+import ViewCoursesAdmin from "./components/Admin/ViewCourses";
+import ManagerHome from "./components/Manager/Home";
+import TraineeHome from "./components/Trainee/Home";
+import ViewDeadLines from "./components/Trainee/ViewDeadLine";
 
 function App() {
   return (
@@ -33,6 +39,12 @@ function App() {
         <Route exact path="/courseDetails" component={CourseDetails} />
         <Route path="/viewCourse" component={viewCourses} />
         <Route path="/traineeDashboard/showDocument" component={ShowDocument} />
+        <Route path="/viewManagers" component={ViewManager} />
+        <Route path="/viewTrainees" component={viewTrainees} />
+        <Route exact path="/viewCourses" component={ViewCoursesAdmin} />
+        <Route exact path="/manager/home" component={TraineeHome} />
+        <Route exact path="/trainee/home" component={TraineeHome} />
+        <Route exact path="/trainee/viewDeadlines" component={ViewDeadLines} />
       </Router>
     </div>
   );

@@ -154,4 +154,34 @@ courses.post("/assignCourses", (req, res, next) => {
   );
 });
 
+courses.get("/getDetails", (req, res, next) => {
+  const userId = req.query.userId;
+  connection.query(
+    "SELECT COUNT(*) AS NumberOfCourses FROM Course WHERE Course.userId =?",
+    [userId],
+    function(err, result) {
+      if (err) {
+        res.json({ err: true });
+      } else {
+        var NumberOfCourses = result[0].NumberOfCourses;
+        connection.query(
+          "SELECT COUNT(*) AS CompletedCourses FROM assignedcourse LEFT JOIN Course ON assignedcourse.courseId = Course.id WHERE assignedCourse.completed = 1 AND course.userId =?",
+          [userId],
+          function(err, result) {
+            if (err) {
+              res.json({ err: true });
+            } else {
+              var CompletedCourses = result[0].CompletedCourses;
+              res.json({
+                NumberOfCourses: NumberOfCourses,
+                CompletedCourses: CompletedCourses
+              });
+            }
+          }
+        );
+      }
+    }
+  );
+});
+
 module.exports = courses;

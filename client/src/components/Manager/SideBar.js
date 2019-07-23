@@ -14,7 +14,7 @@ class SideBar extends Component {
           <p>Welcome, User</p>
 
           <li>
-            <a href="#">Home</a>
+            <a href="/manager/home">Home</a>
           </li>
           <li>
             <Link to="/createCourse" className="nav-link">
