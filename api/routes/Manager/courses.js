@@ -155,6 +155,7 @@ courses.post("/assignCourses", (req, res, next) => {
 });
 
 courses.get("/getDetails", (req, res, next) => {
+  console.log("In");
   const userId = req.query.userId;
   connection.query(
     "SELECT COUNT(*) AS NumberOfCourses FROM Course WHERE Course.userId =?",

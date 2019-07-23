@@ -47,7 +47,7 @@ function App() {
         <PrivateManagerRoute
           exact
           path="/manager/home"
-          component={TraineeHome}
+          component={ManagerHome}
         />
         <PrivateManagerRoute
           exact
