@@ -13,6 +13,7 @@ var documentsRouter = require("./routes/Trainee/documents");
 var traineeCourses = require("./routes/Trainee/courses");
 var ManagerCourses = require("./routes/Manager/courses");
 var ManagerDocuments = require("./routes/Manager/documents");
+var AdminHome = require("./routes/Admin/users");
 
 var app = express();
 
@@ -35,6 +36,7 @@ app.use("/trainee/documents", documentsRouter);
 app.use("/trainee/courses", traineeCourses);
 app.use("/manager/courses", ManagerCourses);
 app.use("/manager/documents", ManagerDocuments);
+app.use("/admin", AdminHome);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

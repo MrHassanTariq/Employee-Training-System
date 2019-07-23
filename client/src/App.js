@@ -14,6 +14,7 @@ import AddDocument from "../src/components/Manager/addDocument";
 import CourseDetails from "../src/components/Manager/courseDetails";
 import viewCourses from "./components/Trainee/viewCourses";
 import ShowDocument from "./components/Trainee/showDocument";
+import Home from "./components/Admin/Home";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Router>
         <Route exact path="/" component={Login} />
         <Route exact path="/addUser" component={AddUser} />
+        <Route exact path="/admin/home" component={Home} />
         <Route exact path="/createCourse" component={CreateCourse} />
         <Route exact path="/mangerDashboard" component={ManagerDashboard} />
         <Route exact path="/traineeDashboard" component={TraineeDashboard} />

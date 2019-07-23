@@ -9,8 +9,6 @@ class Dashboard extends Component {
 
   componentDidMount() {
     executeJS();
-    var value = this.props.name;
-    console.log(this.props.value);
   }
   render() {
     return (

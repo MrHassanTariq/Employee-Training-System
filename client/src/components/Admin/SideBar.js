@@ -10,9 +10,14 @@ class SideBar extends Component {
           <h3>Dashboard</h3>
         </div>
 
-        <ul class="list-unstyled components">
+        <ul className="list-unstyled components">
           <p>Welcome, User</p>
 
+          <li>
+            <Link to="/admin/home" className="nav-link">
+              Home
+            </Link>
+          </li>
           <li>
             <Link to="/addUser" className="nav-link">
               Add User
