@@ -30,6 +30,7 @@ class Login extends Component {
         password: user.password
       })
       .then(res => {
+        sessionStorage.setItem("isLoggedIn", false);
         if (res.data.length === 0) {
           alert("Invalid username or passowrd");
         } else {
@@ -37,15 +38,17 @@ class Login extends Component {
           if (res.data[0].name === "Manager") {
             sessionStorage.setItem("userId", res.data[0].id);
             sessionStorage.setItem("userType", "Manager");
+            this.props.history.push(`/manager/home`);
             // console.log(sessionStorage.getItem("userId"));
           } else if (res.data[0].name === "Trainee") {
             sessionStorage.setItem("userId", res.data[0].id);
             sessionStorage.setItem("userType", "Trainee");
+            this.props.history.push(`/trainee/home`);
           } else {
             sessionStorage.setItem("userId", res.data[0].id);
             sessionStorage.setItem("userType", "Admin");
+            this.props.history.push(`/admin/home`);
           }
-          this.props.history.push(`/Dashboard`);
         }
       });
   };
@@ -54,11 +57,11 @@ class Login extends Component {
     console.log(sessionStorage.getItem("userType"));
     if (sessionStorage.getItem("isLoggedIn")) {
       if (sessionStorage.getItem("userType") === "Manager") {
-        this.props.history.push(`/mangerDashboard`);
+        this.props.history.push(`/manager/home`);
       } else if (sessionStorage.getItem("userType") === "Trainee") {
-        this.props.history.push(`/traineeDashboard`);
+        this.props.history.push(`/trainee/home`);
       } else {
-        this.props.history.push(`/AddUser`);
+        this.props.history.push(`/admin/home`);
       }
     }
   }

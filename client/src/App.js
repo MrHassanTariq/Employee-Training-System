@@ -21,30 +21,71 @@ import ViewCoursesAdmin from "./components/Admin/ViewCourses";
 import ManagerHome from "./components/Manager/Home";
 import TraineeHome from "./components/Trainee/Home";
 import ViewDeadLines from "./components/Trainee/ViewDeadLine";
+import PrivateAdminRoute from "./components/PrivateRoutes/AdminRoute";
+import PrivateManagerRoute from "./components/PrivateRoutes/ManagerRoute";
+import PrivateTraineeRoute from "./components/PrivateRoutes/TraineeRoute";
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Route exact path="/" component={Login} />
-        <Route exact path="/addUser" component={AddUser} />
-        <Route exact path="/admin/home" component={Home} />
-        <Route exact path="/createCourse" component={CreateCourse} />
-        <Route exact path="/mangerDashboard" component={ManagerDashboard} />
-        <Route exact path="/traineeDashboard" component={TraineeDashboard} />
-        {/* <Route exact path="/adminDashboard" component={AdminDashboard} /> */}
         <Route exact path="/Dashboard" component={Dashboard} />
-        <Route exact path="/assignCourse" component={AssignCourse} />
-        <Route exact path="/addDocument" component={AddDocument} />
-        <Route exact path="/courseDetails" component={CourseDetails} />
-        <Route path="/viewCourse" component={viewCourses} />
-        <Route path="/traineeDashboard/showDocument" component={ShowDocument} />
-        <Route path="/viewManagers" component={ViewManager} />
-        <Route path="/viewTrainees" component={viewTrainees} />
-        <Route exact path="/viewCourses" component={ViewCoursesAdmin} />
-        <Route exact path="/manager/home" component={TraineeHome} />
-        <Route exact path="/trainee/home" component={TraineeHome} />
-        <Route exact path="/trainee/viewDeadlines" component={ViewDeadLines} />
+
+        {/* Routes for Admin */}
+        <PrivateAdminRoute exact path="/addUser" component={AddUser} />
+        <PrivateAdminRoute exact path="/admin/home" component={Home} />
+        <PrivateAdminRoute path="/viewManagers" component={ViewManager} />
+        <PrivateAdminRoute path="/viewTrainees" component={viewTrainees} />
+        <PrivateAdminRoute
+          exact
+          path="/viewCourses"
+          component={ViewCoursesAdmin}
+        />
+
+        {/* Routes for Manager */}
+        <PrivateManagerRoute
+          exact
+          path="/manager/home"
+          component={TraineeHome}
+        />
+        <PrivateManagerRoute
+          exact
+          path="/createCourse"
+          component={CreateCourse}
+        />
+        <PrivateManagerRoute
+          exact
+          path="/assignCourse"
+          component={AssignCourse}
+        />
+        <PrivateManagerRoute
+          exact
+          path="/addDocument"
+          component={AddDocument}
+        />
+        <PrivateManagerRoute
+          exact
+          path="/courseDetails"
+          component={CourseDetails}
+        />
+
+        {/* Routes for Trainee */}
+        <PrivateTraineeRoute path="/viewCourse" component={viewCourses} />
+        <PrivateTraineeRoute
+          path="/traineeDashboard/showDocument"
+          component={ShowDocument}
+        />
+        <PrivateTraineeRoute
+          exact
+          path="/trainee/home"
+          component={TraineeHome}
+        />
+        <PrivateTraineeRoute
+          exact
+          path="/trainee/viewDeadlines"
+          component={ViewDeadLines}
+        />
       </Router>
     </div>
   );
