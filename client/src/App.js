@@ -32,13 +32,16 @@ function App() {
         <Route exact path="/testRoute" component={TestRoute} />
 
         {/* Routes for Admin */}
-        <PrivateAdminRoute exact path="/addUser" component={AddUser} />
+        <PrivateAdminRoute exact path="/admin/addUser" component={AddUser} />
         <PrivateAdminRoute exact path="/admin/home" component={Home} />
-        <PrivateAdminRoute path="/viewManagers" component={ViewManager} />
-        <PrivateAdminRoute path="/viewTrainees" component={viewTrainees} />
+        <PrivateAdminRoute path="/admin/viewManagers" component={ViewManager} />
+        <PrivateAdminRoute
+          path="/admin/viewTrainees"
+          component={viewTrainees}
+        />
         <PrivateAdminRoute
           exact
-          path="/viewCourses"
+          path="/admin/viewCourses"
           component={ViewCoursesAdmin}
         />
 
@@ -50,27 +53,30 @@ function App() {
         />
         <PrivateManagerRoute
           exact
-          path="/createCourse"
+          path="/manager/createCourse"
           component={CreateCourse}
         />
         <PrivateManagerRoute
           exact
-          path="/assignCourse"
+          path="/manager/assignCourse"
           component={AssignCourse}
         />
         <PrivateManagerRoute
           exact
-          path="/addDocument"
+          path="/manager/addDocument"
           component={AddDocument}
         />
         <PrivateManagerRoute
           exact
-          path="/courseDetails"
+          path="/manager/courseDetails"
           component={CourseDetails}
         />
 
         {/* Routes for Trainee */}
-        <PrivateTraineeRoute path="/viewCourse" component={viewCourses} />
+        <PrivateTraineeRoute
+          path="/trainee/viewCourse"
+          component={viewCourses}
+        />
         <PrivateTraineeRoute
           path="/traineeDashboard/showDocument"
           component={ShowDocument}

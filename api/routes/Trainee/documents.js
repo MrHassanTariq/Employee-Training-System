@@ -8,13 +8,16 @@ documents.use(cors());
 
 documents.get("/getDocuments", (req, res, next) => {
   const params = [req.query.userId, req.query.courseId];
+  console.log(params);
   connection.query(
     "SELECT document.id,document.name FROM document where document.id IN (SELECT assigneddocument.DocumentId FROM assigneddocument where assigneddocument.completed=0 AND assigneddocument.assignedcourseId IN (SELECT id from assignedcourse where assignedcourse.userId = ? AND assignedcourse.courseId = ?))",
     params,
     function(err, result) {
       if (err) {
+        // console.log(err);
         res.json({ err: true });
       } else {
+        // console.log(result);
         res.json(result);
       }
     }
@@ -59,8 +62,8 @@ documents.post("/markComplete", (req, res, next) => {
           paramsQuery2,
           function(err, result) {
             if (err) {
-              res.json({ err: true });
-              // console.log(err);
+              // res.json({ err: true });
+              console.log(err);
             } else {
               const completedDocuments = result[0].CompletedDocuments;
               const paramsQuery3 = paramsQuery2;
@@ -89,6 +92,8 @@ documents.post("/markComplete", (req, res, next) => {
                           }
                         }
                       );
+                    } else {
+                      res.json(true);
                     }
                   }
                 }

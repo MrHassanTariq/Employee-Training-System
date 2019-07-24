@@ -17,22 +17,22 @@ class SideBar extends Component {
             </Link>
           </li>
           <li>
-            <Link to="/createCourse" className="nav-link">
+            <Link to="/manager/createCourse" className="nav-link">
               Create Course
             </Link>
           </li>
           <li>
-            <Link to="/assignCourse" className="nav-link">
+            <Link to="/manager/assignCourse" className="nav-link">
               Assign Course
             </Link>
           </li>
           <li>
-            <Link to="/addDocument" className="nav-link">
+            <Link to="/manager/addDocument" className="nav-link">
               Create Document
             </Link>
           </li>
           <li>
-            <Link to="/courseDetails" className="nav-link">
+            <Link to="/manager/courseDetails" className="nav-link">
               Course Detail
             </Link>
           </li>

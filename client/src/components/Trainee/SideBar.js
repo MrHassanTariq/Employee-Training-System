@@ -17,7 +17,7 @@ class SideBar extends Component {
             </Link>
           </li>
           <li>
-            <Link to="/viewCourse" className="View Course">
+            <Link to="/trainee/viewCourse" className="View Course">
               View Courses
             </Link>
           </li>

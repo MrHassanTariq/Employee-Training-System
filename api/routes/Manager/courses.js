@@ -136,9 +136,8 @@ courses.post("/assignCourses", (req, res, next) => {
                   } else {
                     const paramsQuery3 = [req.body.params.courseId];
                     const NumberOfInsertedIds = result.length; //Number of IDs courses assigned in last query
+                    console.log("NumberOfInsertedIds", NumberOfInsertedIds);
                     const InsertedIds = result; //Saving all IDs inserted in last query
-                    console.log(InsertedIds[0]);
-                    console.log(NumberOfInsertedIds);
                     //selecting all documents of that particular course
                     connection.query(
                       "SELECT document.id AS ID FROM Document WHERE document.courseId =?",
@@ -156,13 +155,14 @@ courses.post("/assignCourses", (req, res, next) => {
                             for (let j = 0; j < NumberOfInsertedIds; j++) {
                               for (let i = 0; i < result.length; i++) {
                                 paramsQuery4.push([
-                                  InsertedIds[i].id,
+                                  InsertedIds[j].id,
                                   0,
                                   result[i].ID
                                 ]);
                               }
                             }
                             //Finally runinng the last nested query to assign all documents to all users
+                            console.log("Patrameters", [paramsQuery4]);
                             connection.query(
                               "INSERT INTO assigneddocument (assignedcourseId,completed,documentId) VALUES ?",
                               [paramsQuery4],
