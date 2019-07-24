@@ -46,7 +46,7 @@ class viewCourses extends Component {
         courseId: this.state.courseId,
         userId: this.state.userId
       })
-      .then(res => this.props.history.push(`/traineeDashboard`))
+      .then(res => this.props.history.push(`/trainee/home`))
       .catch(error => {
         console.log(error);
       });

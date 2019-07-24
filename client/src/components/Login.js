@@ -69,7 +69,7 @@ class Login extends Component {
   }
   render() {
     return (
-      <div id="LoginBackground" className="container">
+      <div className="container">
         <div className="row">
           <div className="col-md-6 mt-5 mx-auto">
             <form onSubmit={this.onSubmit}>

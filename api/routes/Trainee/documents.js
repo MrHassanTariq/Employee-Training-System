@@ -14,7 +14,6 @@ documents.get("/getDocuments", (req, res, next) => {
     function(err, result) {
       if (err) {
         res.json({ err: true });
-        // console.log(err);
       } else {
         res.json(result);
       }
@@ -48,7 +47,8 @@ documents.post("/markComplete", (req, res, next) => {
     paramsQuery1,
     function(err, result) {
       if (err) {
-        console.log(err);
+        // console.log(err);
+        res.json({ err: true });
       } else {
         const paramsQuery2 = [
           parseInt(req.body.userId),
@@ -59,31 +59,33 @@ documents.post("/markComplete", (req, res, next) => {
           paramsQuery2,
           function(err, result) {
             if (err) {
-              // res.json({ err: true });
-              console.log(err);
+              res.json({ err: true });
+              // console.log(err);
             } else {
-              const completedDocuments = result.CompletedDocuments;
+              const completedDocuments = result[0].CompletedDocuments;
               const paramsQuery3 = paramsQuery2;
               connection.query(
                 "SELECT assignedcourse.noOfDocuments as noOfDocuments from assignedcourse where assignedcourse.userId = ? and assignedcourse.courseId =?",
                 paramsQuery3,
                 function(err, result) {
                   if (err) {
-                    console.log(err);
+                    // console.log(err);
+                    res.json({ err: true });
                   } else {
-                    if (completedDocuments === result.noOfDocuments) {
+                    console.log(completedDocuments, result[0].noOfDocuments);
+                    if (completedDocuments === result[0].noOfDocuments) {
                       const today = new Date();
+                      console.log([today, req.body.userId, req.body.courseId]);
                       connection.query(
-                        `UPDATE assignedcourse SET completed = 1 AND completedOn = ${today} where assignedcourse.userId = ${parseInt(
-                          req.body.userId
-                        )} AND assignedcourse.courseId = ${parseInt(
-                          req.body.courseId
-                        )}`,
+                        `UPDATE assignedcourse SET assignedcourse.completed = 1 , completedOn = ? where assignedcourse.userId = ? AND assignedcourse.courseId = ?`,
+                        [today, req.body.userId, req.body.courseId],
                         function(err, result) {
                           if (err) {
                             res.json({ err: true });
+                            // console.log(err);
                           } else {
                             res.json(result);
+                            // console.log(result);
                           }
                         }
                       );

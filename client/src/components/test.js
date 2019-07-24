@@ -1,13 +1,32 @@
-import React, { Component } from "react";
-// import { register } from "./userFunctions";
-import axios from "axios";
-import { Link } from "react-router-dom";
+import React from "react";
+import Select from "react-select";
 
-class viewCourses extends Component {
-  componentDidMount() {}
+const options = [
+  { value: "chocolate", label: "Chocolate" },
+  { value: "strawberry", label: "Strawberry" },
+  { value: "vanilla", label: "Vanilla" }
+];
+
+class App extends React.Component {
+  state = {
+    selectedOption: null
+  };
+  handleChange = selectedOption => {
+    this.setState({ selectedOption });
+    console.log(`Option selected:`, selectedOption);
+  };
   render() {
-    return <div>Test Div</div>;
+    const { selectedOption } = this.state;
+
+    return (
+      <Select
+        value={selectedOption}
+        onChange={this.handleChange}
+        options={options}
+        isMulti={true}
+      />
+    );
   }
 }
 
-export default viewCourses;
+export default App;

@@ -32,13 +32,15 @@ class AddDocument extends Component {
       });
   }
 
-  AddDocument = () => {
+  AddDocument = e => {
+    e.preventDefault();
     axios
       .post("http://localhost:9000/manager/documents/addDocument", {
         params: {
           courseId: this.state.courseId,
           documentName: this.state.documentName,
-          documentDescription: this.state.documentDescription
+          documentDescription: this.state.documentDescription,
+          userId: sessionStorage.getItem("userId")
         }
       })
       .then(res => {
@@ -46,7 +48,7 @@ class AddDocument extends Component {
         if (res.data === true) {
           alert("Document Already Exists. Choose another name");
         } else {
-          this.props.history(`/`);
+          this.props.history.push(`/manager/home`);
         }
       })
       .catch(error => {
@@ -110,10 +112,9 @@ class AddDocument extends Component {
             <button
               onClick={this.AddDocument}
               type="submit"
-              onSubmit={this.AddDocument}
               className="btn btn-primary btn-lg btn-block"
             >
-              Assign Course
+              Add Document
             </button>
             {/* </form> */}
           </div>

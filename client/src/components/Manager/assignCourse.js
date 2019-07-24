@@ -73,18 +73,19 @@ class assignCourse extends Component {
   };
 
   //Assign a course to a particular User
-  assignCourse = () => {
+  assignCourse = event => {
+    event.preventDefault();
     if (this.validateSelectedUsers() === false)
       alert("Please select a valid number of users");
     else {
       axios
         .post("http://localhost:9000/manager/courses/assignCourses", {
           params: {
-            userId: this.state.selectedOption.value,
+            selectedUsers: this.state.selectedOption,
             courseId: this.state.courseId
           }
         })
-        .then(res => console.log(res))
+        .then(res => this.props.history.push(`/manager/home`))
         .catch(error => {
           console.log(error);
         });
@@ -106,43 +107,44 @@ class assignCourse extends Component {
       <div className="container">
         <div className="row">
           <div className="col-md-6 mt-5 mx-auto">
-            {/* <form> */}
-            <div className="form-group">
-              <label htmlFor="courseName">Course Name:</label>
-              <select
-                className="form-control"
-                name="courseName"
-                onChange={this.getUsersInCourse}
-                required
+            <form>
+              <div className="form-group">
+                <label htmlFor="courseName">Course Name:</label>
+                <select
+                  className="form-control"
+                  name="courseName"
+                  onChange={this.getUsersInCourse}
+                  required
+                >
+                  {this.state.courses.map((item, i) => {
+                    return (
+                      <option key={i} value={item.id}>
+                        {item.name}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor="trainees">Select all Trainees:</label>
+                <Select
+                  defaultValue={[]}
+                  name="users"
+                  options={this.state.users}
+                  className="basic-multi-select"
+                  classNamePrefix="select"
+                  onChange={this.handleChange}
+                  isMulti={true}
+                />
+              </div>
+              <button
+                type="submit"
+                className="btn btn-primary btn-lg btn-block"
+                onClick={this.assignCourse}
               >
-                {this.state.courses.map((item, i) => {
-                  return (
-                    <option key={i} value={item.id}>
-                      {item.name}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor="trainees">Select all Trainees:</label>
-              <Select
-                defaultValue={[]}
-                name="users"
-                options={this.state.users}
-                className="basic-multi-select"
-                classNamePrefix="select"
-                onChange={this.handleChange}
-              />
-            </div>
-            <button
-              type="submit"
-              className="btn btn-primary btn-lg btn-block"
-              onClick={this.assignCourse}
-            >
-              Assign Course
-            </button>
-            {/* </form> */}
+                Assign Course
+              </button>
+            </form>
           </div>
         </div>
       </div>

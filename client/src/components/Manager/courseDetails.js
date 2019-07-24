@@ -73,6 +73,7 @@ class CreateCourse extends Component {
                     }
                   ]
                 });
+                return row;
               });
             }
           });
@@ -104,9 +105,11 @@ class CreateCourse extends Component {
                   );
                 })}
               </select>
+              <br />
               <h1 className="h3 font-weight-normal">
-                Course Details: {this.state.courseName}
+                Course Name: {this.state.courseName}
               </h1>
+              <br />
               <table className="table table-hover">
                 <thead className="thead-dark">
                   <tr>
@@ -128,7 +131,7 @@ class CreateCourse extends Component {
                           <td>{item.name}</td>
                           <td>{item.email}</td>
                           <td>
-                            {item.completed === 0 ? "InComplete" : "InComplete"}
+                            {item.completed === 0 ? "InComplete" : "Complete"}
                           </td>
                           <td>{item.completedOn}</td>
                         </tr>

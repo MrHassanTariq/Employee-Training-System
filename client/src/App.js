@@ -21,6 +21,7 @@ import ViewDeadLines from "./components/Trainee/ViewDeadLine";
 import PrivateAdminRoute from "./components/PrivateRoutes/AdminRoute";
 import PrivateManagerRoute from "./components/PrivateRoutes/ManagerRoute";
 import PrivateTraineeRoute from "./components/PrivateRoutes/TraineeRoute";
+import TestRoute from "./components/test";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
       <Router>
         <Route exact path="/" component={Login} />
         <Route exact path="/Dashboard" component={Dashboard} />
+        <Route exact path="/testRoute" component={TestRoute} />
 
         {/* Routes for Admin */}
         <PrivateAdminRoute exact path="/addUser" component={AddUser} />

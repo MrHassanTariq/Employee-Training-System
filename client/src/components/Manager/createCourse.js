@@ -32,7 +32,7 @@ class createCourse extends Component {
         if (res.data.hasOwnProperty("status")) {
           alert("Course already exists. Choose a valid name");
         } else {
-          this.props.history.push(`/createCourse`);
+          this.props.history.push(`/manager/home`);
         }
       })
       .catch(error => {
